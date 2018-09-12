@@ -15,10 +15,10 @@ class userprofiles:
 		global user_prof_rr = {id : [name, points, sidecolor_rr]}
 		self.getlistofplayers(id, listofplayers)
 
-	#User Info list in Elimination Tournament.
+	#User Info list in Elimination Tournament [name, sidecolor, wins, loses].
 	def getuserinfo_em(self, name, sidecolor_em):
 		id = self.random_char(4)
-		global user_prof_em = {id : [name, sidecolor_em]}
+		global user_prof_em = {id : [name, sidecolor_em, 0,0]}
 
 	#Associating each player in the Round Robin Tournament with the list players he didn't play against.
 	def getlistofplayers(self, id, listofplayers):
