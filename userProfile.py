@@ -10,17 +10,21 @@ class UserProfiles:
 		self.user_prof_rr = {}
 		self.user_prof_em = {}
 		self.id_players = {}
-
+		self.key_list = ["A", "B", "C", "D", "E", "F", "G", "H"]
+		
+                
 	#User Info list in Round Robin Tournament.
-	def setuserinfo_rr(self, name, points, sidecolor_rr, listofplayers):
-		id_rr = self.random_char(4)
-		self.user_prof_rr[id_rr]= [name, points, sidecolor_rr]
-		self.setlistofplayers(id, listofplayers)
+	def setuserinfo_rr(self, name, points, sidecolor_rr):
+		id_rr = self.random_char()
+                #self.user_prof_rr[id_rr] = [name, points, sidecolor_rr]
+                #self.setlistofplayers(id, listofplayers)
 
 	#User Info list in Elimination Tournament [name, sidecolor, wins, loses].
-	def setuserinfo_em(self, name, sidecolor_em, rounds):
-		id_em = self.random_char(4)
-		self.user_prof_em['id_em'] = [name, sidecolor_em, rounds]
+	def setuserinfo_em(self, names, sidecolor_em, rounds):
+                self.key_list = self.key_list[0:len(names)]
+                for name in names:
+                    id_em = self.random_char()
+                    self.user_prof_em[id_em] = [name, sidecolor_em, rounds]
 
 	#Associating each player in the Round Robin Tournament with the list players he didn't play against.
 	def setlistofplayers(self, id, listofplayers):
@@ -39,5 +43,8 @@ class UserProfiles:
 			else:
 				self.user_prof_em[id][1] = 'b'
 
-	def random_char(self, y):
-		return ''.join(random.choice(string.ascii_letters) for x in range(y))
+	def random_char(self):  
+            r = random.randrange(len(self.key_list))
+            key = self.key_list[r]
+            del self.key_list[r]
+            return key

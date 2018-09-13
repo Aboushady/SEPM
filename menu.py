@@ -1,6 +1,6 @@
 import sys
-from SEPM import userProfile
-
+import userProfile
+import elimination
 
 
 
@@ -70,9 +70,8 @@ def start_menu():
             else:
                 print('Wrong input. Try again!')
             print('\n')
-
+        ai = -1
         if(remaining >= 1):
-            ai = -1
             while(ai <= -1 or ai > remaining):
                 ai = input('Press q to quit or choose amount of ai [ 0 - %d ]: ' % remaining)
                 quit(ai)
@@ -100,15 +99,17 @@ def start_menu():
                 tournament = int(tournament)
             print('\n')
 
-        for name in names:
-            if tournament == 1:
-                user.setuserinfo_rr(name, 0, 0, 0)
-            else:
-                user.setuserinfo_em(name, 0, 0)
+        if tournament == 1:
+            user.setuserinfo_rr(names, 0, 0, 0)
+        else:
+            user.setuserinfo_em(names, 0, 'TBD')
+            e = elimination.SingleElimination(user, len(names))
+            e.eliminationOrganizer(len(names))
 
         #here we should call the different game modes by using the parameter tournament and the names list
-
-
+    
+        #for key, value in user.user_prof_em.items():
+            #print(key + '--' + value[0])
 def main():
 
     start_menu()

@@ -6,13 +6,13 @@
 class Standings:
 
 
-	def __init__(self, user):
-		self.user = user
+	#def __init__(self, user):
+	#	self.user = user
 
-	def showstandings_during(self, tournament_type):
+	def showstandings_during(self, user, tournament_type):
 		if tournament_type == 'rr':
 			for key, value in user.user_prof_rr.items():
-				print "{first}-----{Second} \n".format(first=key, second=value[1])
+				print ("{first}-----{Second} \n".format(first=key, second=value[1]))
 		else:
 			for key, value in user.user_prof_em.items(): #discuss about this approach.
 				# if value[2] > 0:
@@ -21,7 +21,7 @@ class Standings:
 				# 	winner_dict[key] = value[2]
 				# print 'Winners                          Losers \n'
 				# print  winner_dict[key]+'             '+loser_dict[key]
-				print(str(key) + '------' + value[2])
+				print(value[0] + '------' + value[2])
 	
 	def showstandings_after(self, tournament_type):
 		if tournament_type == 'rr':
@@ -30,7 +30,7 @@ class Standings:
 			sorted_values= sorted(user.user_prof_rr.value[2])
 			for i in range(1, 4):
 				print (i + ':' + sorted_keys[i-1] + '         ' + sorted_values[i-1])
-		else:
+#		else:
 			
 			
 
