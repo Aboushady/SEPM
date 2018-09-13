@@ -1,4 +1,8 @@
 import sys
+from SEPM import userProfile
+
+
+
 
 def quit(x):
     if(x == 'q'):
@@ -6,6 +10,8 @@ def quit(x):
         sys.exit()
 
 def start_menu():
+
+    user = userProfile.UserProfiles()
 
     option = 0
     while(option != '1' and option != '2'):
@@ -77,7 +83,7 @@ def start_menu():
                 print('\n')
 
         k = 0
-        while(k < remaining):
+        while(k < ai):
             names.append('ai')
             k += 1
 
@@ -94,9 +100,13 @@ def start_menu():
                 tournament = int(tournament)
             print('\n')
 
+        for name in names:
+            if tournament == 1:
+                user.setuserinfo_rr(name, 0, 0, 0)
+            else:
+                user.setuserinfo_em(name, 0, 0)
+
         #here we should call the different game modes by using the parameter tournament and the names list
-
-
 
 
 def main():
