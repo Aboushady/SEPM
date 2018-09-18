@@ -13,43 +13,27 @@ def start_menu():
 
     user = userProfile.UserProfiles()
 
-    option = 0
-    while(option != '1' and option != '2'):
+    option = 'X'
+    while(option.upper() != 'T'):
         print('\n')
         print("           BestGame\n\n")
         print("Please select an option\n")
-        print("1 - VS game\n")
-        print("2 - Tournament\n")
+
+        print("[T] - Tournament\n")
         print('press q to quit\n')
 
         option = input("Please select an option: ")
         quit(option)
         print('\n')
 
-    if option == '1':
-        mode = 0
-        while (mode < 1 or mode > 3):
-            print('1 - player vs player\n')
-            print('2 - player vs ai\n')
-            print('3 - ai vs player\n')
-            print('press q to quit\n')
 
-            mode = input('choose a VS mode: ')
-            quit(mode)
 
-            if (mode.isdigit() == False):
-                mode = 0
-            else:
-                mode = int(mode)
-            print('\n')
-            #Start a game
-
-    elif option == '2':
+    if (option.upper() == 'T'):
 
         players = 0
         while(players < 3 or players > 8):
 
-            players = input('Press q to quit or choose amount of players[ 3-8 ]: ')
+            players = input('Press q to quit or choose the total amount of players[ 3-8 ]: ')
             quit(players)
             if(players.isdigit() == False):
                 players = 0
@@ -57,11 +41,24 @@ def start_menu():
                 players = int(players)
 
             print('\n')
-        remaining = 8 - int(players)
+
+
+
+        humans = -1
+        while (humans < 0 or humans > players):
+            humans = input('Press q to quit or choose the amount of human players [0-%d]: '% players)
+            quit(humans)
+            if (humans.isdigit() == False):
+                humans = -1
+            else:
+                humans = int(humans)
+
+            print('\n')
+
 
         i = 0
         names = []
-        while (i < players):
+        while (i < humans):
             name = input('Press q to quit or enter a 4 character name for player %d: ' % (i + 1))
             quit(name)
             if(len(name) == 4):
@@ -70,21 +67,16 @@ def start_menu():
             else:
                 print('Wrong input. Try again!')
             print('\n')
-        ai = -1
-        if(remaining >= 1):
-            while(ai <= -1 or ai > remaining):
-                ai = input('Press q to quit or choose amount of ai [ 0 - %d ]: ' % remaining)
-                quit(ai)
-                if (ai.isdigit() == False):
-                    ai = -1
-                else:
-                    ai = int(ai)
-                print('\n')
+
+
+        ai = players-humans
 
         k = 0
         while(k < ai):
-            names.append('ai')
+            names.append('com%d' % k)
             k += 1
+        for x in names:
+            print(x)
 
         tournament = 0
         while (tournament < 1 or tournament > 2):
@@ -100,16 +92,12 @@ def start_menu():
             print('\n')
 
         if tournament == 1:
-            user.setuserinfo_rr(names, 0, 0, 0)
+            user.setuserinfo('rr', names)
         else:
-            user.setuserinfo_em(names, 0, 'TBD')
+            user.setuserinfo('em', names, 'TBD')
             e = elimination.SingleElimination(user, len(names))
             e.eliminationOrganizer(len(names))
 
-        #here we should call the different game modes by using the parameter tournament and the names list
-    
-        #for key, value in user.user_prof_em.items():
-            #print(key + '--' + value[0])
 def main():
 
     start_menu()
