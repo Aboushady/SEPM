@@ -137,22 +137,35 @@ class SingleElimination:
             self.createGUI()
             standing = standings.Standings()
             while len(brackets[0]) != 1:
+
+                #Creates matches as it goes, 1 match per loop iteration
                 for i in range(0, len(brackets)):
                     if len(brackets[i]) == 2:
                         print(self.gui)
-                        print("Next match: " + self.users.user_prof_em[brackets[i][0]][0] + " vs " + self.users.user_prof_em[brackets[i][1]][0])
+                        print("Next match: " + self.users.user_profiles[brackets[i][0]][0] + " vs " + self.users.user_profiles[brackets[i][1]][0])
+
+                        #asks the user to begin next match
                         self.nextMatch()
-                        x = self.play(brackets[i])       #the play function
+
+                        #play function here
+                        x = self.play(brackets[i])
+
+                        #Check if draw
                         x = self.checkWinner(brackets[i], x)
-                        self.users.user_prof_em[x][2] = str(len(brackets)+1)
-                        print("Place :" + str(len(brackets)+1))
-                        brackets[i].remove(x)       #remove the loser
-                        print("The Winner is: " + self.users.user_prof_em[brackets[i][0]][0])
-                        self.updateGUI(nextWin, self.users.user_prof_em[brackets[i][0]][0]) 
+
+                        #Loser gets a standing(placement in the tournament)
+                        self.users.user_profiles[x][2] = str(len(brackets)+1)
+
+                        #removes the loser (depends on what info the play function passes back
+                        brackets[i].remove(x)
+                        
+                        print("The Winner is: " + self.users.user_profiles[brackets[i][0]][0])
+                        self.updateGUI(nextWin, self.users.user_profiles[brackets[i][0]][0]) 
                         if int(nextWin[1]) < size:  #decide where the winner of the next match will be on the gui
                             nextWin = nextWin.replace(nextWin[1], str(int(nextWin[1])+1))
-                            #print(nextWin)
-                        #print("Removed " + x)       #handle the stuff that's inbetween the matches here
+                        #handle the stuff that's inbetween the matches here
+
+                #Creates new matches
                 tmp = []
                 while len(brackets) != 0:
                     if len(brackets) != 1:
@@ -163,32 +176,31 @@ class SingleElimination:
                         tmp.append([brackets[0][0]])
                         del brackets[0]
                 brackets = tmp
-            #self.updateGUI(nextWin, self.users.user_prof_em[brackets[i][0]][0])
+            #After every match has been played
             print(self.gui)
-            self.users.user_prof_em[brackets[0][0]][2] = '1'
-            #print(tmp)
-            #return tmp
-            standing.showstandings_during(self.users, 'no')
+            self.users.user_profiles[brackets[0][0]][2] = '1'
+            standing.showstandings_during(self.users, 'em')
 
         def updateGUI(self, nextWin, winner):
             self.gui = self.gui.replace(nextWin, winner)
 
         def createGUI(self):
-            for key, value in self.users.user_prof_em.items():
+            for key, value in self.users.user_profiles.items():
                 #print(key+key+key+key+'----'+value[0])
                 self.gui = self.gui.replace(key+key+key+key, value[0])
                 
         def nextMatch(self):
             x = " "
             while x != "next":
-                x = input("Write 'next' to proceed to the next match and 'quit' to quit: ")
+                x = input("Write 'next' to proceed to the next match and 'quit' to quit: \n")
                 if x == "quit":
                     sys.exit()
+                    
         def checkWinner(self, players, loser):
             if loser != " ":
                 return loser
             while loser == " ":
-                x = input("Draw! Write 'rematch' to play again or 'random' to pick a random winner")
+                x = input("Draw! Write 'rematch' to play again or 'random' to pick a random winner: \n")
                 if x == 'rematch':
                     loser = self.play(players)
                 if x == 'random':

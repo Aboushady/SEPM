@@ -10,20 +10,15 @@ class Standings:
         #       self.user = user
 
         def showstandings_during(self, user, tournament_type):
+                #Implent rr
                 if tournament_type == 'rr':
-                        for key, value in user.user_prof_rr.items():
+                        for key, value in user.user_profiles.items():
                                 print("{first}-----{Second} \n".format(first=key, second=value[1]))
-                else:
+                elif tournament_type == 'em':
                         list = []
-                        for key, value in user.user_prof_em.items(): #discuss about this approach.
-                                # if value[2] > 0:
-                                #   loser_dict[key] = value[2]
-                                # else:
-                                #   winner_dict[key] = value[2]
-                                # print 'Winners                          Losers \n'
-                                # print  winner_dict[key]+'             '+loser_dict[key]
+                        for key, value in user.user_profiles.items(): 
                                 list.append((value[2], value[0]))
-                                #print(value[0] + '------' + value[2]
+                                
                         list.sort(key=self.sortS)
                         print("NAME----PLACEMENT\n")
                         for i, value in enumerate(list):
