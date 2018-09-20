@@ -130,14 +130,8 @@ class SingleElimination:
             else:
                 return match[1]
 
-        def eliminationOrganizer(self, size = 3):
-            brackets = self.matchbrackets[size - 3]
-            nextWin = "W1W1"
-            self.gui = self.gui[size-3]
-            self.createGUI()
-            standing = standings.Standings()
-            while len(brackets[0]) != 1:
-
+        def matchAndPlay(self, brackets, nextWin):
+            
                 #Creates matches as it goes, 1 match per loop iteration
                 for i in range(0, len(brackets)):
                     if len(brackets[i]) == 2:
@@ -161,11 +155,12 @@ class SingleElimination:
                         
                         print("The Winner is: " + self.users.user_profiles[brackets[i][0]][0])
                         self.updateGUI(nextWin, self.users.user_profiles[brackets[i][0]][0]) 
-                        if int(nextWin[1]) < size:  #decide where the winner of the next match will be on the gui
+                        if int(nextWin[1]) < self.size:  #decide where the winner of the next match will be on the gui
                             nextWin = nextWin.replace(nextWin[1], str(int(nextWin[1])+1))
                         #handle the stuff that's inbetween the matches here
+                return(brackets, nextWin)
 
-                #Creates new matches
+        def pairPlayers(self, brackets):
                 tmp = []
                 while len(brackets) != 0:
                     if len(brackets) != 1:
@@ -175,7 +170,19 @@ class SingleElimination:
                     else:
                         tmp.append([brackets[0][0]])
                         del brackets[0]
-                brackets = tmp
+                return(tmp)
+        
+        def eliminationOrganizer(self, size = 3):
+            brackets = self.matchbrackets[size - 3]
+            nextWin = "W1W1"
+            self.gui = self.gui[size-3]
+            self.createGUI()
+            standing = standings.Standings()
+            while len(brackets[0]) != 1:
+                #goes through the brackets and plays each match
+                brackets, nextWin = self.matchAndPlay(brackets, nextWin)
+                #Creates new matches
+                brackets = self.pairPlayers(brackets)
             #After every match has been played
             print(self.gui)
             self.users.user_profiles[brackets[0][0]][2] = '1'
