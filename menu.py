@@ -24,6 +24,7 @@ def main_menu():
         print('\n')
     return(option)
 
+#returns the amount of players specified by user, 3 <= players <= 8
 def get_total_players():
         players = 0
         while(players < 3 or players > 8):
@@ -37,6 +38,7 @@ def get_total_players():
             print('\n')
         return(players)
 
+#returns the amount of humans specified by user, 0 <= humans <= players
 def get_human_players(players):
         humans = -1
         while (humans < 0 or humans > players):
@@ -50,6 +52,7 @@ def get_human_players(players):
             print('\n')
         return(humans)
 
+#returns a list of names that includes every participant(ai is called "com%d"), length(names) = players
 def get_names_list(players, humans):
         i = 0
         names = []
