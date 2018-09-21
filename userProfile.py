@@ -27,11 +27,18 @@ class UserProfiles:
                         self.user_profiles[id_em] = [name, sidecolor, placement]
                     elif(ttype == 'rr'):      
                         self.user_profiles[id_em] = [name, sidecolor, placement, points]
-                        
+
+                if (ttype == 'rr'):
+                    self.set_list_of_players(self.user_profiles)
 
     #Associating each player in the Round Robin Tournament with the list players he didn't play against.
-    def setlistofplayers(self, id, listofplayers):
-        self.id_players[id] = [listofplayers]
+    def set_list_of_players(self, user_profiles):
+        for key, value in user_profiles.items():
+            for k, v in user_profiles.items():
+                if k == key:
+                    continue
+                else:
+                    self.id_players[key].append[k]
 
     #Switching sides.
     def switchsides(self, p1, p2):
