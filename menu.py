@@ -5,14 +5,11 @@ import elimination
 
 
 def quit(x):
-    if(x == 'q'):
+    if(x.upper() == 'Q'):
         print('\nbye')
         sys.exit()
 
-def start_menu():
-
-    user = userProfile.UserProfiles()
-
+def main_menu():  
     option = 'X'
     while(option.upper() != 'T'):
         print('\n')
@@ -25,14 +22,12 @@ def start_menu():
         option = input("Please select an option: ")
         quit(option)
         print('\n')
+    return(option)
 
-
-
-    if (option.upper() == 'T'):
-
+#returns the amount of players specified by user, 3 <= players <= 8
+def get_total_players():
         players = 0
         while(players < 3 or players > 8):
-
             players = input('Press q to quit or choose the total amount of players[ 3-8 ]: ')
             quit(players)
             if(players.isdigit() == False):
@@ -41,9 +36,10 @@ def start_menu():
                 players = int(players)
 
             print('\n')
+        return(players)
 
-
-
+#returns the amount of humans specified by user, 0 <= humans <= players
+def get_human_players(players):
         humans = -1
         while (humans < 0 or humans > players):
             humans = input('Press q to quit or choose the amount of human players [0-%d]: '% players)
@@ -54,8 +50,10 @@ def start_menu():
                 humans = int(humans)
 
             print('\n')
+        return(humans)
 
-
+#returns a list of names that includes every participant(ai is called "com%d"), length(names) = players
+def get_names_list(players, humans):
         i = 0
         names = []
         while (i < humans):
@@ -67,14 +65,27 @@ def start_menu():
             else:
                 print('Wrong input. Try again!')
             print('\n')
-
-
         ai = players-humans
-
         k = 0
         while(k < ai):
             names.append('com%d' % k)
             k += 1
+        return names
+
+
+def start_menu():
+
+    user = userProfile.UserProfiles()
+
+
+    option = main_menu()
+
+    if (option.upper() == 'T'):
+
+        players = get_total_players()
+        humans = get_human_players(players)
+        names = get_names_list(players, humans)
+        
         for x in names:
             print(x)
 
