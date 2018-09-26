@@ -1,7 +1,7 @@
 import sys
 import userProfile
 import elimination
-
+import round_robin
 
 
 def quit(x):
@@ -104,6 +104,8 @@ def start_menu():
 
         if tournament == 1:
             user.setuserinfo('rr', names)
+            rr = round_robin.RoundRobin(names)
+            rr.rr_organizer()
         else:
             user.setuserinfo('em', names, 'TBD')
             e = elimination.SingleElimination(user, len(names))
