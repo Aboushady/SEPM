@@ -3,8 +3,8 @@ import sys
 import standings
 class RoundRobin:
 
-    def __init__(self, names):
-        self.usr = userProfile.UserProfiles()
+    def __init__(self, user, names):
+        self.usr = user
         self.standings_obj = standings.Standings()
         self.match_ups_ls = []
         self.plyrs_names = names
@@ -19,9 +19,10 @@ class RoundRobin:
         #                 continue
         #             else:
         self.match_ups_ls = self.match_ups(self.plyrs_names)
+        print("This is fixtures" + str(self.match_ups_ls))
         self.gui(self.match_ups_ls)
         self.play(self.match_ups_ls)
-        self.standings_obj.showstandings_after("rr", usr)
+        self.standings_obj.showstandings_after(self.usr, "rr")
 
 
 
@@ -39,15 +40,21 @@ class RoundRobin:
         return fixtures
 
     def gui(self, match_ups_ls):
-        for i in range(0, len(match_ups_ls)):
-            for j in range(0, 3):
-                print("Round :" + str(i+1) +
-                        match_ups_ls[i][j][0] +
-                      "----------------|"
-                      "                |"
-                      "                |"
-                      "----------------|"
-                      + match_ups_ls[i][j][1]+ "\n \n")
+        count = 0
+        for i in match_ups_ls:
+            count = count+1
+            temp_ls = zip(*[iter(i)] * 2)
+            zipped_ls = list(temp_ls)
+
+        #for i in range(0, len(match_ups_ls)):
+            print ("Round :" + str(count) + "\n")
+            for j in range(0, int(len(zipped_ls))):
+                print(zipped_ls[j][0] + "\n" +
+                      "----------------|\n"
+                      "                |\n"
+                      "                |\n"
+                      "----------------|\n"
+                      + zipped_ls[j][1]+ "\n \n")
 
     def play(self, match_ups_ls):
         x = " "
@@ -70,12 +77,15 @@ class RoundRobin:
                 zipped_ls = list(temp_ls)
                 self.assign_rand_color(zipped_ls)
                 self.update_gui(zipped_ls, rounds_count)
-                self.winner(zipped_ls)
-                self.next_round()
+                self.winner(zipped_ls, rounds_count)
+
+                #If this is the last round, don't call next_round().
+                if rounds_count != rounds-1:
+                    self.next_round()
                 rounds_count = rounds_count + 1
 
     def assign_rand_color(self, zipped_ls):
-        for i in range(0, 3):
+        for i in range(0, len(zipped_ls)):
             for key, value in self.usr.user_profiles.items():
                 if value[0] == zipped_ls[i][0] :
                     value[1] = 'b'
@@ -83,26 +93,26 @@ class RoundRobin:
                     value[1] = 'w'
 
     def update_gui(self, zipped_ls, rounds_num):
-        for i in range(0, 3):
-            print("Round :" + str(rounds_num + 1) +
-                  zipped_ls[i][0] +
-                  "----------------|"
-                  "                |"
-                  "                |"
-                  "----------------|"
+        print("Round :" + str(rounds_num + 1))
+        for i in range(0, len(zipped_ls)):
+            print(zipped_ls[i][0] + "\n"
+                  "----------------|\n"
+                  "                |\n"
+                  "                |\n"
+                  "----------------|\n"
                   + zipped_ls[i][1] + "\n \n")
 
 
-    def winner(self, zipped_ls):
+    def winner(self, zipped_ls, rounds_count):
 
         #Get the winner based on the game, add points to the dict of the these players, and print them.
 
         #1-Statiscally assigning the winners, till the itegration with the actuall game.
 
         #2-Printings the winners
-        print("The winners are : \n" )
-        for i in range(0, 3):
-            print(zipped_ls[i][0] + "\n")
+        print("The winners of round "+ str(rounds_count)+" are : \n" )
+        for i in range(0, len(zipped_ls)):
+            print("-" + zipped_ls[i][0] + "\n")
             for key, value in self.usr.user_profiles.items():
                 #3-Adding a point to each winner.
                 if value[0] == zipped_ls[i][0]:
@@ -115,6 +125,6 @@ class RoundRobin:
                       "2- Write 'stat' to view the game's statistics.\n"
                       "3- Write 'quit' to quit. \n")
             if x == "stat":
-                self.standings_obj.showstandings_during("rr", self.usr)
+                self.standings_obj.showstandings_during(self.usr, "rr")
             if x == "quit":
                 sys.exit()

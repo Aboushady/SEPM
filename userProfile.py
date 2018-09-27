@@ -38,7 +38,7 @@ class UserProfiles:
                 if k == key:
                     continue
                 else:
-                    self.id_players[key].append[k]
+                    self.id_players.setdefault(key, []).append(k)
 
     #Switching sides.
     def switchsides(self, p1, p2):

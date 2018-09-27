@@ -12,8 +12,11 @@ class Standings:
         def showstandings_during(self, user, tournament_type):
                 #Implent rr
                 if tournament_type == 'rr':
-                        for key, value in user.user_profiles.items():
-                                print("{first}-----{Second} \n".format(first=key, second=value[3]))
+                        sorted_ls = sorted(user.user_profiles.items(), key=operator.itemgetter(1))
+                        print(sorted_ls)
+                        for i in reversed(sorted_ls):
+                                print(str(i[1][0]) + '--------' + str(i[1][3]) + '\n')
+
                 elif tournament_type == 'em':
                         list = []
                         for key, value in user.user_profiles.items(): 
