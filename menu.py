@@ -68,7 +68,7 @@ def get_names_list(players, humans):
         ai = players-humans
         k = 0
         while(k < ai):
-            names.append('com%d' % k)
+            names.append('com%dx' % k)
             k += 1
         return names
 
@@ -87,7 +87,7 @@ def start_menu():
         names = get_names_list(players, humans)
         
         for x in names:
-            print(x)
+            print(x[:4])
 
         tournament = 0
         while (tournament < 1 or tournament > 2):
