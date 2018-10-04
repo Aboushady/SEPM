@@ -23,10 +23,14 @@ class UserProfiles:
                     else:
                         sidecolor = False
                         
-                    if(ttype == 'em'):
-                        self.user_profiles[id_em] = [name, sidecolor, placement]
-                    elif(ttype == 'rr'):      
-                        self.user_profiles[id_em] = [name, sidecolor, placement, points]
+                    if(ttype == 'em' and len(name) == 4):
+                        self.user_profiles[id_em] = [name, sidecolor, placement, "none"]
+                    elif(ttype == 'rr' and len(name) == 4):      
+                        self.user_profiles[id_em] = [name, sidecolor, placement, points, "none"]
+                    elif(ttype == 'em' and len(name) > 4):
+                        self.user_profiles[id_em] = [name[:4], sidecolor, placement, "easy"]
+                    elif(ttype == 'rr' and len(name) > 4):
+                        self.user_profiles[id_em] = [name[:4], sidecolor, placement, points, "easy"]
 
                 if (ttype == 'rr'):
                     self.set_list_of_players(self.user_profiles)
