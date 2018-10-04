@@ -59,7 +59,7 @@ class RoundRobin:
     def play(self, match_ups_ls):
         x = " "
         while x != "play":
-            x = input("Write 'play' to start, or 'quit' to exit the game: \n")
+            x = str.lower(input("Write 'play' to start, or 'quit' to exit the game: \n"))
             if x == "quit":
                 sys.exit()
         #Calculate the number of rounds.
@@ -121,9 +121,9 @@ class RoundRobin:
     def next_round(self):
         x = " "
         while x != "next":
-            x = input("1- Write 'next' to proceed to the next round.\n"
+            x = str.lower(input("1- Write 'next' to proceed to the next round.\n"
                       "2- Write 'stat' to view the game's statistics.\n"
-                      "3- Write 'quit' to quit. \n")
+                      "3- Write 'quit' to quit. \n"))
             if x == "stat":
                 self.standings_obj.showstandings_during(self.usr, "rr")
             if x == "quit":
