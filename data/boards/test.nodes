@@ -1,0 +1,3 @@
+#!nmm_nodes
+a1: up=a4
+a4: left=a2
