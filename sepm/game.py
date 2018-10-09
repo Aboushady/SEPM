@@ -95,6 +95,7 @@ class Game(object):
         :raises GameOver: When the game is over.
         """
         while True:
+            #print(self.board.nodes())
             self.board.change_turn()
             player = self.board.current
 
@@ -106,7 +107,7 @@ class Game(object):
                 color=self.board.current.color.value,
                 phase=self.board.current.phase.value
             ))
-
+        
             # Handle current player move
             try:
                 if player.is_placing:

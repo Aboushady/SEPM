@@ -128,12 +128,33 @@ class SingleElimination:
 
         ###ADD CASES FOR AI WHEN READY
         def play(self, match):
+            #match = brackets
             if(self.users.user_profiles[match[0]][1] == 1):
-                player1 = HumanPlayer(match[0]+"."+self.users.user_profiles[match[0]][0], PieceColor.Black)
-                player2 = HumanPlayer(match[1]+"."+self.users.user_profiles[match[1]][0], PieceColor.White)
+                if self.users.user_profiles[match[0]][3] == None and self.users.user_profiles[match[1]][3] == None:
+                    player1 = HumanPlayer(match[0]+"."+self.users.user_profiles[match[0]][0], PieceColor.Black)
+                    player2 = HumanPlayer(match[1]+"."+self.users.user_profiles[match[1]][0], PieceColor.White)
+                elif self.users.user_profiles[match[0]][3] != None and self.users.user_profiles[match[1]][3] == None:
+                    player1 = RandomAI(match[0]+"."+self.users.user_profiles[match[0]][0], PieceColor.Black)
+                    player2 = HumanPlayer(match[1]+"."+self.users.user_profiles[match[1]][0], PieceColor.White)
+                elif self.users.user_profiles[match[0]][3] == None and self.users.user_profiles[match[1]][3] != None:
+                    player1 = HumanPlayer(match[0]+"."+self.users.user_profiles[match[0]][0], PieceColor.Black)
+                    player2 = RandomAI(match[1]+"."+self.users.user_profiles[match[1]][0], PieceColor.White)
+                else:
+                    player1 = RandomAI(match[0]+"."+self.users.user_profiles[match[0]][0], PieceColor.Black)
+                    player2 = RandomAI(match[1]+"."+self.users.user_profiles[match[1]][0], PieceColor.White)
             else:
-                player1 = HumanPlayer(match[0]+"."+self.users.user_profiles[match[0]][0], PieceColor.White)
-                player2 = HumanPlayer(match[1]+"."+self.users.user_profiles[match[1]][0], PieceColor.Black)
+                if self.users.user_profiles[match[0]][3] == None and self.users.user_profiles[match[1]][3] == None:
+                    player1 = HumanPlayer(match[0]+"."+self.users.user_profiles[match[0]][0], PieceColor.White)
+                    player2 = HumanPlayer(match[1]+"."+self.users.user_profiles[match[1]][0], PieceColor.Black)
+                elif self.users.user_profiles[match[0]][3] != None and self.users.user_profiles[match[1]][3] == None:
+                    player1 = RandomAI(match[0]+"."+self.users.user_profiles[match[0]][0], PieceColor.White)
+                    player2 = HumanPlayer(match[1]+"."+self.users.user_profiles[match[1]][0], PieceColor.Black)
+                elif self.users.user_profiles[match[0]][3] == None and self.users.user_profiles[match[1]][3] != None:
+                    player1 = HumanPlayer(match[0]+"."+self.users.user_profiles[match[0]][0], PieceColor.White)
+                    player2 = RandomAI(match[1]+"."+self.users.user_profiles[match[1]][0], PieceColor.Black)
+                else:
+                    player1 = RandomAI(match[0]+"."+self.users.user_profiles[match[0]][0], PieceColor.White)
+                    player2 = RandomAI(match[1]+"."+self.users.user_profiles[match[1]][0], PieceColor.Black)    
             game = Game()
             game.add_players(player1, player2)
             try:
@@ -143,7 +164,9 @@ class SingleElimination:
                 if go.winner is None:
                     return " "
                 else:
-                    return match.remove(go.winner[0])[0]
+                    #match.remove(str(go.winner)[0])
+                    #print(match)
+                    return match[abs(match.index(str(go.winner)[0])-1)]
 ##            r = random.random()
 ##            if r < 0.5:
 ##                return match[0]
@@ -170,16 +193,18 @@ class SingleElimination:
                         print(self.gui)
                         print("Next match: " + self.users.user_profiles[brackets[i][0]][0] + " vs " + self.users.user_profiles[brackets[i][1]][0])
                         self.nextMatch()
+                        
                         #play function here should return the id of the loser or empty if draw 
                         x = self.play(brackets[i])
 
                         #Check if draw
                         x = self.checkWinner(brackets[i], x)
-                        self.users.user_profiles[x][2] = str(len(brackets)+1)
 
+                        self.users.user_profiles[x][2] = str(len(brackets)+1)
+                        
                         #removes the loser (depends on what info the play function passes back)
                         brackets[i].remove(x)
-                        
+
                         print("The Winner is: " + self.users.user_profiles[brackets[i][0]][0])
                         self.updateGUI(nextWin, self.users.user_profiles[brackets[i][0]][0]) 
                         if int(nextWin[1]) < self.size:  #decide where the winner of the next match will be on the gui

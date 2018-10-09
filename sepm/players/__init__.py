@@ -14,6 +14,7 @@ class Player:
         self.color = color
         self.phase = phase
         self.pieces = [GamePiece(color) for _ in range(num_pieces)]
+        self.last_move = [None, None]
 
     @property
     def opponent_color(self):
