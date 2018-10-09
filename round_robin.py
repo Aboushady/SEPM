@@ -77,6 +77,7 @@ class RoundRobin:
                 zipped_ls = list(temp_ls)
                 self.assign_rand_color(zipped_ls)
                 self.update_gui(zipped_ls, rounds_count)
+                print(zipped_ls)
                 self.winner(zipped_ls, rounds_count)
 
                 #If this is the last round, don't call next_round().
