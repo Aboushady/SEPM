@@ -13,7 +13,6 @@ class Standings:
                 #Implent rr
                 if tournament_type == 'rr':
                         sorted_ls = sorted(user.user_profiles.items(), key=operator.itemgetter(1))
-                        print(sorted_ls)
                         for i in reversed(sorted_ls):
                                 print(str(i[1][0]) + '--------' + str(i[1][3]) + '\n')
 
@@ -41,6 +40,7 @@ class Standings:
                 if tournament_type == 'rr':
                         sorted_ls = sorted(user.user_profiles.items(), key=operator.itemgetter(1))
                         count = 0
+                        print('The top three winners are : \n')
                         for i in reversed(sorted_ls):
                                 count = count + 1
                                 print(str(count) + ':- ' + str(i[1][0]) + '--------' + str(

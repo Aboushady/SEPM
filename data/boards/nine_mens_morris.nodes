@@ -1,0 +1,22 @@
+#!nmm_nodes
+a1: up=a4, right=d1
+d1: up=d2, right=g1
+g1: up=g4
+b2: up=b4, right=d2
+d2: up=d3, right=f2
+f2: up=f4
+c3: up=c4, right=d3
+d3: right=e3
+e3: up=e4
+a4: up=a7, right=b4
+b4: up=b6, right=c4
+c4: up=c5
+e4: up=e5, right=f4
+f4: up=f6, right=g4
+g4: up=g7
+c5: right=d5
+d5: up=d6, right=e5
+b6: right=d6
+d6: up=d7, right=f6
+a7: right=d7
+d7: right=g7
