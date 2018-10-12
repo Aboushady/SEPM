@@ -67,14 +67,14 @@ class RoundRobin:
 
     def play(self, match_ups_ls):
         x = " "
-        winner_names_ls = []
+        #winner_names_ls = []
         while x != "play":
             x = str.lower(input("Write 'play' to start, or 'quit' to exit the game: \n"))
             if x == "quit":
                 sys.exit()
         #Calculate the number of rounds.
 
-        rounds = 0
+        #rounds = 0
         if self.names_len % 2:
             rounds = self.names_len
         else:
@@ -123,7 +123,7 @@ class RoundRobin:
         #1-Statiscally assigning the winners, till the itegration with the actuall game.
 
         #2-Printings the winners
-        print("The winners of round "+ str(rounds_count)+" are : \n" )
+        print("The winner of round "+ str(rounds_count+1)+" is : \n" )
         # for i in range(0, len(zipped_ls)):
         #     print("-" + zipped_ls[i][0] + "\n")
         #     for key, value in self.usr.user_profiles.items():
@@ -164,6 +164,8 @@ class RoundRobin:
 
             plyr_clr = plyr_clr_1 = is_human = is_human_1 = ' '
             for _, value in self.usr.user_profiles.items():
+                if value[0] == 'bye':
+                    continue
                 if value[0] == zipped_ls[j][0]:
                     plyr_clr = value[1]
                     if plyr_clr == 'B':
@@ -230,7 +232,7 @@ class RoundRobin:
                 print("Game over! It's a draw.\n")
             else:
                 name = go.winner.name
-            x = str.lower(input("Write 'switch' to switch colors Or Press 'Enter' to continue. \n"))
+            x = str.lower(input("Write 'swit' to switch colors Or Press 'Enter' to continue. \n"))
             if x == 'swit':
                 self.usr.switchsides(player1, player2)
         return name
