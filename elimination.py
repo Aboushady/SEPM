@@ -130,26 +130,26 @@ class SingleElimination:
         def play(self, match):
             #match = brackets
             if(self.users.user_profiles[match[0]][1] == 1):
-                if self.users.user_profiles[match[0]][3] == None and self.users.user_profiles[match[1]][3] == None:
+                if self.users.user_profiles[match[0]][3] == "none" and self.users.user_profiles[match[1]][3] == "none":
                     player1 = HumanPlayer(match[0]+"."+self.users.user_profiles[match[0]][0], PieceColor.Black)
                     player2 = HumanPlayer(match[1]+"."+self.users.user_profiles[match[1]][0], PieceColor.White)
-                elif self.users.user_profiles[match[0]][3] != None and self.users.user_profiles[match[1]][3] == None:
+                elif self.users.user_profiles[match[0]][3] != "none" and self.users.user_profiles[match[1]][3] == "none":
                     player1 = RandomAI(match[0]+"."+self.users.user_profiles[match[0]][0], PieceColor.Black)
                     player2 = HumanPlayer(match[1]+"."+self.users.user_profiles[match[1]][0], PieceColor.White)
-                elif self.users.user_profiles[match[0]][3] == None and self.users.user_profiles[match[1]][3] != None:
+                elif self.users.user_profiles[match[0]][3] == "none" and self.users.user_profiles[match[1]][3] != "none":
                     player1 = HumanPlayer(match[0]+"."+self.users.user_profiles[match[0]][0], PieceColor.Black)
                     player2 = RandomAI(match[1]+"."+self.users.user_profiles[match[1]][0], PieceColor.White)
                 else:
                     player1 = RandomAI(match[0]+"."+self.users.user_profiles[match[0]][0], PieceColor.Black)
                     player2 = RandomAI(match[1]+"."+self.users.user_profiles[match[1]][0], PieceColor.White)
             else:
-                if self.users.user_profiles[match[0]][3] == None and self.users.user_profiles[match[1]][3] == None:
+                if self.users.user_profiles[match[0]][3] == "none" and self.users.user_profiles[match[1]][3] == "none":
                     player1 = HumanPlayer(match[0]+"."+self.users.user_profiles[match[0]][0], PieceColor.White)
                     player2 = HumanPlayer(match[1]+"."+self.users.user_profiles[match[1]][0], PieceColor.Black)
-                elif self.users.user_profiles[match[0]][3] != None and self.users.user_profiles[match[1]][3] == None:
+                elif self.users.user_profiles[match[0]][3] != "none" and self.users.user_profiles[match[1]][3] == "none":
                     player1 = RandomAI(match[0]+"."+self.users.user_profiles[match[0]][0], PieceColor.White)
                     player2 = HumanPlayer(match[1]+"."+self.users.user_profiles[match[1]][0], PieceColor.Black)
-                elif self.users.user_profiles[match[0]][3] == None and self.users.user_profiles[match[1]][3] != None:
+                elif self.users.user_profiles[match[0]][3] == "none" and self.users.user_profiles[match[1]][3] != "none":
                     player1 = HumanPlayer(match[0]+"."+self.users.user_profiles[match[0]][0], PieceColor.White)
                     player2 = RandomAI(match[1]+"."+self.users.user_profiles[match[1]][0], PieceColor.Black)
                 else:
