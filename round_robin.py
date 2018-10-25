@@ -101,9 +101,9 @@ class RoundRobin:
         for i in range(0, len(zipped_ls)):
             for _, value in self.usr.user_profiles.items():
                 if value[0] == zipped_ls[i][0]:
-                    value[1] = 'B'
+                    value[1] = True
                 if value[0] == zipped_ls[i][1]:
-                    value[1] = 'W'
+                    value[1] = False
 
     def update_gui(self, zipped_ls, rounds_num):
         print("Round :" + str(rounds_num + 1))
@@ -164,19 +164,20 @@ class RoundRobin:
 
             plyr_clr = plyr_clr_1 = is_human = is_human_1 = ' '
             for _, value in self.usr.user_profiles.items():
+                #print(value[0] + "fuck" + str(value[1]))
                 if value[0] == 'bye':
                     continue
-                if value[0] == zipped_ls[j][0]:
+                if value[0] == zipped_ls[j][0][:4]:
                     plyr_clr = value[1]
-                    if plyr_clr == 'B':
+                    if plyr_clr == True:
                         plyr_clr = PieceColor.Black
                     else:
                         plyr_clr = PieceColor.White
                     is_human = value[4]
-                if value[0] == zipped_ls[j][1]:
+                if value[0] == zipped_ls[j][1][:4]:
                     plyr_clr_1 = value[1]
                     is_human_1 = value[4]
-                    if plyr_clr_1 == 'B':
+                    if plyr_clr_1 == True:
                         plyr_clr_1 = PieceColor.Black
                     else:
                         plyr_clr_1 = PieceColor.White
@@ -193,7 +194,6 @@ class RoundRobin:
             #         else:
             #             plyr_clr_1 = PieceColor.Black
             # Check if both players is human or AI.
-
             if is_human == 'none':
                 self.player1 = HumanPlayer(zipped_ls[j][0], plyr_clr)
 
