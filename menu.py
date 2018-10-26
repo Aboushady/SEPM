@@ -1,7 +1,7 @@
 import sys
 import userProfile
 import elimination
-
+import round_robin
 
 
 def quit(x):
@@ -68,7 +68,7 @@ def get_names_list(players, humans):
         ai = players-humans
         k = 0
         while(k < ai):
-            names.append('com%d' % k)
+            names.append('com%dx' % k)
             k += 1
         return names
 
@@ -87,7 +87,7 @@ def start_menu():
         names = get_names_list(players, humans)
         
         for x in names:
-            print(x)
+            print(x[:4])
 
         tournament = 0
         while (tournament < 1 or tournament > 2):
@@ -104,6 +104,8 @@ def start_menu():
 
         if tournament == 1:
             user.setuserinfo('rr', names)
+            rr = round_robin.RoundRobin(user, names)
+            rr.rr_organizer()
         else:
             user.setuserinfo('em', names, 'TBD')
             e = elimination.SingleElimination(user, len(names))

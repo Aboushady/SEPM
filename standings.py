@@ -1,7 +1,7 @@
 #Assuming that the dictionaries are Global, and the flag that says whether this is the standings are after the tournament,
 #Or during it, and the type of the tournament is sent as a parameter.
 
-
+import operator
 
 class Standings:
 
@@ -12,8 +12,10 @@ class Standings:
         def showstandings_during(self, user, tournament_type):
                 #Implent rr
                 if tournament_type == 'rr':
-                        for key, value in user.user_profiles.items():
-                                print("{first}-----{Second} \n".format(first=key, second=value[1]))
+                        sorted_ls = sorted(user.user_profiles.items(), key=operator.itemgetter(1))
+                        for i in reversed(sorted_ls):
+                                print(str(i[1][0]) + '--------' + str(i[1][3]) + '\n')
+
                 elif tournament_type == 'em':
                         list = []
                         for key, value in user.user_profiles.items(): 
@@ -34,13 +36,17 @@ class Standings:
         def sortS(self, s):
                 return int(s[0])
                 
-        def showstandings_after(self, tournament_type):
+        def showstandings_after(self, user, tournament_type):
                 if tournament_type == 'rr':
-                        self.showstandings_during(tournament_type)
-                        sorted_keys  = sorted(user.user_prof_rr, key=user.user_prof_rr.__getitem__)
-                        sorted_values= sorted(user.user_prof_rr.value[2])
-                        for i in range(1, 4):
-                                print (i + ':' + sorted_keys[i-1] + '         ' + sorted_values[i-1])
+                        sorted_ls = sorted(user.user_profiles.items(), key=operator.itemgetter(1))
+                        count = 0
+                        print('The top three winners are : \n')
+                        for i in reversed(sorted_ls):
+                                count = count + 1
+                                print(str(count) + ':- ' + str(i[1][0]) + '--------' + str(
+                                        i[1][3]) + '\n')
+                                if count == 3:
+                                        break
 #               else:
                         
                         
